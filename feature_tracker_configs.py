@@ -172,7 +172,7 @@ class FeatureTrackerConfigs(object):
     #       $ pip3 uninstall opencv-contrib-python
     #       $ pip3 install opencv-contrib-python==3.4.2.16
     SURF = dict(num_features=kNumFeatures,
-                num_levels = 8,
+                num_levels = 3,
                 detector_type = FeatureDetectorTypes.SURF, 
                 descriptor_type = FeatureDescriptorTypes.SURF, 
                 match_ratio_test = kRatioTest,                         

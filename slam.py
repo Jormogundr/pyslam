@@ -326,7 +326,7 @@ class Tracking(object):
                 print('     # num_matched_map_points: %d' % (self.num_matched_map_points) )
                 #print('     # matched points: %d' % (num_matched_points) )
                                       
-                if not self.pose_is_ok or self.num_matched_map_points < kNumMinInliersPoseOptimizationTrackFrame:
+                if not self.pose_is_ok:# or self.num_matched_map_points < kNumMinInliersPoseOptimizationTrackFrame:
                     Printer.red('failure in tracking previous frame, # matched map points: ', self.num_matched_map_points)                    
                     self.pose_is_ok = False                                                                                                   
         
@@ -378,7 +378,7 @@ class Tracking(object):
         num_matched_points = f_cur.clean_outlier_map_points()   
         print('      # num_matched_map_points: %d' % (self.num_matched_map_points) ) 
         #print('     # matched points: %d' % (num_matched_points) )               
-        if not self.pose_is_ok or self.num_matched_map_points < kNumMinInliersPoseOptimizationTrackFrame:
+        if not self.pose_is_ok:# or self.num_matched_map_points < kNumMinInliersPoseOptimizationTrackFrame:
             f_cur.remove_frame_views(idxs_cur)
             f_cur.reset_points()               
             Printer.red('failure in tracking reference %d, # matched map points: %d' %(f_ref.id,self.num_matched_map_points))  
@@ -427,7 +427,7 @@ class Tracking(object):
                                               # and then bundle adjustment will possible decide if remove them or not;
                                               # only after keyframe generation the outliers are cleaned!
         print('     # num_matched_map_points: %d' % (self.num_matched_map_points) )
-        if not self.pose_is_ok or self.num_matched_map_points < kNumMinInliersPoseOptimizationTrackLocalMap:
+        if not self.pose_is_ok:# or self.num_matched_map_points < kNumMinInliersPoseOptimizationTrackLocalMap:
             Printer.red('failure in tracking local map, # matched map points: ', self.num_matched_map_points) 
             self.pose_is_ok = False                                        
         
