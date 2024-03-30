@@ -42,6 +42,7 @@ from dataset import dataset_factory
 #from mplot2d import Mplot2d
 from mplot_thread import Mplot2d, Mplot3d
 from matplotlib import pyplot as plt
+from PIL import Image
 import pandas as pd
 
 if platform.system()  == 'Linux':     
@@ -108,6 +109,23 @@ if __name__ == "__main__":
 
     do_step = False   
     is_paused = False 
+
+    # check if directory we want to save images to exists
+    # use https://shotstack.io/learn/use-ffmpeg-to-convert-images-to-video/ to make footage
+    dir = './results/'
+    subdir = 'run'
+    img_dir = f"{dir}{subdir}/"
+    count = 1
+    for f in os.listdir(dir):
+        if os.path.isdir(img_dir):
+            img_dir = f'{dir}{subdir}{count}/'
+            count += 1
+            continue
+        else:
+            break
+    os.mkdir(img_dir)
+
+    img_basename = 'image'
     
     img_id = 0  #180, 340, 400   # you can start from a desired frame id if needed
     try:
@@ -133,11 +151,15 @@ if __name__ == "__main__":
 
                     img_draw = slam.map.draw_feature_trails(img)
                         
-                    # 2D display (image display)
+                    # 2D display (image display), draw to camera
                     if display2d is not None:
                         display2d.draw(img_draw)
                     else: 
                         cv2.imshow('Camera', img_draw)
+
+                    # save the image with tracked points
+                    im = Image.fromarray(img_draw)
+                    im.save(f"{img_dir}{img_basename}{img_id}.jpeg")
 
                     if matched_points_plt is not None:
                         if slam.tracking.num_matched_kps is not None: 
