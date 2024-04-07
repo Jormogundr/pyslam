@@ -38,6 +38,7 @@ myjet = np.array([[0.        , 0.        , 0.5       ],
 
 
 def getchar():
+    return
     print('press enter to continue:')
     a = input('').split(" ")[0]
     print(a)

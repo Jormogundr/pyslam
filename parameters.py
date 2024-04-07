@@ -25,10 +25,10 @@ class Parameters(object):
     
     # SLAM threads 
     kLocalMappingOnSeparateThread=True           # True: move local mapping on a separate thread, False: tracking and then local mapping in a single thread 
-    kTrackingWaitForLocalMappingToGetIdle=False  
-    kTrackingWaitForLocalMappingSleepTime=0.6 # 0.5  # -1 for no sleep # [s]
+    kTrackingWaitForLocalMappingToGetIdle=True  
+    kTrackingWaitForLocalMappingSleepTime=-1 # 0.5  # -1 for no sleep # [s]
     kLocalMappingParallelKpsMatching=True
-    kLocalMappingParallelKpsMatchingNumWorkers=4
+    kLocalMappingParallelKpsMatchingNumWorkers=30 # big speedup for slam
     
     
     # Number of desired keypoints per frame 
@@ -48,22 +48,20 @@ class Parameters(object):
 
 
     # Feature management
-    kSigmaLevel0 = 1.0                        # default value; can be changed by selected feature        
-    kFeatureMatchRatioTest = 0.7              
+    kSigmaLevel0 = 2.0                        # default value; can be changed by selected feature        
+    kFeatureMatchRatioTest = 2.0              
     #kFeatureMatchRatioTestInitializer        # ratio test used by Initializer 
-    #
-    kKdtNmsRadius = 3 # pixels  #3        # radius for kd-tree based Non-Maxima Suppression
-    #
+    kKdtNmsRadius = 5 # pixels  #3        # radius for kd-tree based Non-Maxima Suppression
     kCheckFeaturesOrientation = True 
 
 
     # Initializer 
-    kInitializerDesiredMedianDepth = 20    # when initializing, the initial median depth is computed and forced to this value (for better visualization is > 1) 
+    kInitializerDesiredMedianDepth = 1    # when initializing, the initial median depth is computed and forced to this value (for better visualization is > 1) 
     kMinRatioBaselineDepth = 0.01 
     #kMinTraslation = 0.01*kInitializerDesiredMedianDepth  # not used at the present time     
-    kInitializerNumMinFeatures = 100
-    kInitializerNumMinTriangulatedPoints = 100
-    kFeatureMatchRatioTestInitializer = 0.8   # ratio test used by Initializer        
+    kInitializerNumMinFeatures = 50
+    kInitializerNumMinTriangulatedPoints = 50
+    kFeatureMatchRatioTestInitializer = 1   # ratio test used by Initializer        
 
 
     # Tracking 

@@ -31,8 +31,8 @@ kNumFeatures=Parameters.kNumFeatures
 
 kRatioTest=Parameters.kFeatureMatchRatioTest
 
-kTrackerType = FeatureTrackerTypes.DES_BF      # default descriptor-based, brute force matching with knn 
-#kTrackerType = FeatureTrackerTypes.DES_FLANN  # default descriptor-based, FLANN-based matching 
+#kTrackerType = FeatureTrackerTypes.DES_BF      # default descriptor-based, brute force matching with knn 
+kTrackerType = FeatureTrackerTypes.DES_FLANN  # default descriptor-based, FLANN-based matching 
         
         
 """
@@ -46,8 +46,8 @@ class FeatureTrackerConfigs(object):
     TEST = dict(num_features=kNumFeatures,                   
                 num_levels = 8,                                  # N.B: some detectors/descriptors do not allow to set num_levels or they set it on their own
                 scale_factor = 1.2,                              # N.B: some detectors/descriptors do not allow to set scale_factor or they set it on their own
-                detector_type = FeatureDetectorTypes.ORB2, 
-                descriptor_type = FeatureDescriptorTypes.ORB2, 
+                detector_type = FeatureDetectorTypes.AGAST, 
+                descriptor_type = FeatureDescriptorTypes.BRISK, 
                 match_ratio_test = kRatioTest,
                 tracker_type = kTrackerType)
     

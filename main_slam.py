@@ -22,10 +22,7 @@
 import gi
 gi.require_version('Gtk', '2.0')
 # -----------------------------------------------------------
-
-import numpy as np
 import cv2
-import math
 import time 
 import os
 
@@ -35,7 +32,6 @@ from config import Config
 
 from slam import Slam, SlamState
 from camera  import PinholeCamera
-from ground_truth import groundtruth_factory
 from dataset import dataset_factory
 
 #from mplot3d import Mplot3d
@@ -52,13 +48,8 @@ from viewer3D import Viewer3D
 from utils_sys import getchar, Printer 
 
 from feature_tracker import feature_tracker_factory, FeatureTrackerTypes 
-from feature_manager import feature_manager_factory
-from feature_types import FeatureDetectorTypes, FeatureDescriptorTypes, FeatureInfo
-from feature_matcher import feature_matcher_factory, FeatureMatcherTypes
 
 from feature_tracker_configs import FeatureTrackerConfigs
-
-from parameters import Parameters  
 import multiprocessing as mp 
 
 if __name__ == "__main__":
@@ -82,12 +73,12 @@ if __name__ == "__main__":
     
     num_features=2000 
 
-    #tracker_type = FeatureTrackerTypes.DES_BF      # descriptor-based, brute force matching with knn 
-    tracker_type = FeatureTrackerTypes.DES_FLANN  # descriptor-based, FLANN-based matching 
+    tracker_type = FeatureTrackerTypes.DES_BF      # descriptor-based, brute force matching with knn 
+    #tracker_type = FeatureTrackerTypes.DES_FLANN  # descriptor-based, FLANN-based matching 
 
     # select your tracker configuration (see the file feature_tracker_configs.py) 
     # FeatureTrackerConfigs: SHI_TOMASI_ORB, FAST_ORB, ORB, ORB2, ORB2_FREAK, ORB2_BEBLID, BRISK, AKAZE, FAST_FREAK, SIFT, ROOT_SIFT, SURF, SUPERPOINT, FAST_TFEAT, CONTEXTDESC
-    tracker_config = FeatureTrackerConfigs.SURF
+    tracker_config = FeatureTrackerConfigs.TEST
     tracker_config['num_features'] = num_features
     tracker_config['tracker_type'] = tracker_type
     
@@ -112,6 +103,7 @@ if __name__ == "__main__":
 
     # check if directory we want to save images to exists
     # use https://shotstack.io/learn/use-ffmpeg-to-convert-images-to-video/ to make footage
+    # ffmpeg -framerate 30 -i image%d.jpeg -c:v libx264 -r 30 ORB2_day_result.mp4
     dir = './results/'
     subdir = 'run'
     img_dir = f"{dir}{subdir}/"
